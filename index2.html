@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satya Manikanta Yalla | MEAN Stack Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --light: #f8fafc;
+            --light-gray: #f1f5f9;
+            --gray: #64748b;
+            --dark: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: var(--transition);
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+            border-radius: 0 0 0 80px;
+            z-index: -1;
+            transform: translateX(20%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(20%) translateY(0); }
+            50% { transform: translateX(20%) translateY(-20px); }
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 0 0 300px;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 40px var(--shadow);
+            transition: var(--transition);
+            transform: perspective(1000px) rotateY(-10deg);
+        }
+
+        .hero-image:hover img {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: var(--border-radius);
+            z-index: -1;
+            transform: rotate(5deg);
+            opacity: 0.2;
+        }
+
+        .tag {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5); }
+            100% { box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .personal-info {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 8px 20px var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 2;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-hover);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 80px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 22px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 5px solid white;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 25px var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px var(--shadow-hover);
+        }
+
+        .project-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tech-tag {
+            background: var(--light-gray);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .view-details {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .view-details::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .view-details:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Project Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.4s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .modal-subtitle {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .modal-content {
+            margin-top: 20px;
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .modal-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-section h4 i {
+            color: var(--primary);
+        }
+
+        .achievements-list {
+            list-style-type: none;
+        }
+
+        .achievements-list li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .achievements-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Animation for scroll reveal */
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-image {
+                flex: 0 0 250px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .modal {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            
+            .hero-bg {
+                width: 80%;
+            }
+            
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <i class="fas fa-code"></i> Satya<span>Dev</span>
+            </a>
+            
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <a href="Satya_Manikanta_Yalla_MEAN_Developer.pdf" class="nav-btn" target="_blank" download>
+                    <i class="fas fa-download"></i> Resume
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="tag animate__animated animate__pulse animate__infinite">MEAN Stack Developer</div>
+                    <h1 class="animate__animated animate__fadeInUp">Satya Manikanta Yalla</h1>
+                    <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">
+                        Full-Stack Developer with 4+ years of experience in building enterprise-scale and cloud-ready applications. 
+                        Proven track record delivering high-impact solutions for government and enterprise clients using Agile methodologies.
+                    </p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#projects" class="btn">View My Work</a>
+                        <a href="#contact" class="btn btn-outline">Contact Me</a>
+                        <a href="Satya_Manikanta_Yalla_MEAN_Developer.pdf" class="btn btn-outline" target="_blank" download>
+                            <i class="fas fa-download"></i> Download Resume
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image animate__animated animate__fadeInRight">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Satya Manikanta Yalla">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title reveal">About Me</h2>
+            <p class="section-subtitle reveal">
+                Experienced Full-Stack Developer passionate about creating innovative solutions and delivering excellence.
+            </p>
+            
+            <div class="about-content">
+                <div class="about-text reveal">
+                    <h3>Professional Summary</h3>
+                    <p>
+                        I am a passionate MEAN Stack Developer with 4+ years of experience in building enterprise-scale and cloud-ready applications. 
+                        I have strong expertise in Angular (8–15+), Node.js, Express.js, REST APIs, and scalable UI architecture.
+                    </p>
+                    <p>
+                        My hands-on experience includes working with MongoDB, MySQL, Redis, AWS S3, Linux-based Nginx deployments, 
+                        and API documentation using Swagger. I have a proven track record of delivering high-impact solutions for 
+                        government and enterprise clients using Agile methodologies.
+                    </p>
+                    <p>
+                        I enjoy tackling complex challenges and turning them into simple, beautiful, and intuitive solutions. 
+                        When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, 
+                        or improving my development skills.
+                    </p>
+                    
+                    <div class="personal-info reveal">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Education</h3>
+                                <p><strong>B. Tech (Mech) - JNTUK</strong> with 68%</p>
+                                <p><strong>Diploma (Mech) – Aditya Engineering College</strong> with 75%</p>
+                                <p><strong>SSC – Vignana Jyothi School</strong> with 87%</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Experience</h3>
+                                <p><strong>4+ Years</strong> of professional development experience</p>
+                                <p><strong>MEAN Stack Developer</strong> at Asset Telematics Pvt Ltd (Current)</p>
+                                <p><strong>Angular Developer</strong> at Aagama Consulting Services & Tech Mahindra Ltd</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-container reveal">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Frontend Expertise</h3>
+                        <p>Angular (8-15+), TypeScript, HTML5, CSS3, RxJS, Lazy Loading, Guards, Interceptors, Signals, Responsive Design</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>Backend & APIs</h3>
+                        <p>Node.js, Express.js, REST APIs, C# Web API, Tuxedo SALT, WebLogic, WS02, API Design & Documentation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title reveal">Technical Skills</h2>
+            <p class="section-subtitle reveal">
+                Comprehensive expertise across the full stack development ecosystem.
+            </p>
+            
+            <div class="skills-container">
+                <div class="skill-card reveal">
+                    <div class="skill-icon">
+                        <i class="fab fa-angular"></i>
+                    </div>
+                    <h3>Frontend Development</h3>
+                    <p>Angular (8-15+), TypeScript, HTML5, CSS3, RxJS, Lazy Loading, Guards, Interceptors, Signals, Component Architecture</p>
+                </div>
+                
+                <div class="skill-card reveal">
+                    <div class="skill-icon">
+                        <i class="fab fa-node-js"></i>
+                    </div>
+                    <h3>Backend Development</h3>
+                    <p>Node.js, Express.js, REST APIs, C# Web API, Tuxedo SALT, WebLogic, WS02, Microservices Architecture</p>
+                </div>
+                
+                <div class="skill-card reveal">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Databases</h3>
+                    <p>MongoDB, MySQL, Redis, SQL Server, optimized schema design, indexing, caching strategies, data modeling</p>
+                </div>
+                
+                <div class="skill-card reveal">
+                    <div class="skill-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>DevOps & Cloud</h3>
+                    <p>AWS S3, Nginx, Linux, CI/CD, Git, GitHub, GitLab, Docker, Kafka, MQTT, Server Deployment & Management</p>
+                </div>
+                
+                <div class="skill-card reveal">
+                    <div class="skill-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Tools & Methodologies</h3>
+                    <p>Swagger, VS Code, Postman, Agile/Scrum, JIRA, Git workflows, API documentation, Testing & Debugging</p>
+                </div>
+                
+                <div class="skill-card reveal">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Performance & Optimization</h3>
+                    <p>Application scaling, Load balancing, Caching strategies, Query optimization, Performance monitoring</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title reveal">Professional Experience</h2>
+            <p class="section-subtitle reveal">
+                4+ years of building impactful solutions for enterprise clients using Agile methodologies.
+            </p>
+            
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Nov 2022 - Present</div>
+                    <div class="timeline-content">
+                        <h3>MEAN Stack Developer</h3>
+                        <p class="company">Asset Telematics Pvt Ltd</p>
+                        <p>Building scalable applications using Angular, Node.js, MySQL, Redis, and AWS S3. Working on HRMS and Inventory Management systems for Middle East blue-collar workforce.</p>
+                        <ul>
+                            <li>Developed scalable HRMS platform for employee and inventory management</li>
+                            <li>Integrated AI-based OCR services to extract data from employee documents</li>
+                            <li>Used AWS S3 for secure document storage and Redis for caching</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Nov 2022 - Sep 2024</div>
+                    <div class="timeline-content">
+                        <h3>Angular Developer</h3>
+                        <p class="company">Aagama Consulting Services Ltd</p>
+                        <p>Migrated critical FOIS systems from VB6 to Angular for Indian Railways (CRIS). Worked on Terminal Management System (TMS), Rake Management System (RMS), and Operations Control Centre (OCC).</p>
+                        <ul>
+                            <li>Designed Angular application architecture, reusable modules, and shared UI components</li>
+                            <li>Built reusable Angular table and form components, reducing UI development time by 40%</li>
+                            <li>Integrated Angular UI with RESTful services and Tuxedo SALT services via Java layer</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Sep 2021 - Aug 2022</div>
+                    <div class="timeline-content">
+                        <h3>Angular Developer</h3>
+                        <p class="company">Tech Mahindra Ltd</p>
+                        <p>Built skin analysis web application using Angular 8, C# Web API, and SQL Server. Created a web application that analyzes facial skin conditions using image processing techniques.</p>
+                        <ul>
+                            <li>Delivered personalized skincare recommendations based on data-driven analysis</li>
+                            <li>Designed intuitive UI for seamless user experience and accurate results</li>
+                            <li>Worked with C# Web API backend and SQL Server database</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Jul 2020 - Aug 2021</div>
+                    <div class="timeline-content">
+                        <h3>Trainee Apprentice</h3>
+                        <p class="company">Cylent Ltd</p>
+                        <p>Started my professional journey as a Trainee Apprentice, learning software development fundamentals and gaining hands-on experience with web technologies.</p>
+                        <ul>
+                            <li>Learned frontend development with HTML, CSS, and JavaScript</li>
+                            <li>Gained understanding of software development lifecycle</li>
+                            <li>Developed foundational skills in problem-solving and coding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title reveal">Featured Projects</h2>
+            <p class="section-subtitle reveal">
+                High-impact solutions delivered for government and enterprise clients.
+            </p>
+            
+            <div class="projects-grid">
+                <div class="project-card reveal" data-project="fois">
+                    <div class="project-img">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>FOIS Migration Projects</h3>
+                        <p>Migrated critical Freight Operations Information Systems (FOIS) from VB6 to modern Angular-based web applications for Indian Railways.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Angular 15</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">REST APIs</span>
+                            <span class="tech-tag">WebLogic</span>
+                        </div>
+                        <p class="achievement">Reduced UI development time by <strong>40%</strong> through reusable components.</p>
+                        <a class="view-details">View Details →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card reveal" data-project="jio">
+                    <div class="project-img">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Jio Humsafar – B2B Logistics</h3>
+                        <p>Designed and developed features for Jio's B2B platform serving retailers and distributors with scalable REST APIs.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Kafka</span>
+                        </div>
+                        <p class="achievement">Handled <strong>50k+ daily requests</strong> with <strong>30% improved response time</strong>.</p>
+                        <a class="view-details">View Details →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card reveal" data-project="hrms">
+                    <div class="project-img">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>HRMS & Inventory Management</h3>
+                        <p>Developed a scalable HRMS platform for managing employees and inventory for Middle East blue-collar workforce.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">AWS S3</span>
+                        </div>
+                        <p class="achievement">Integrated AI-based OCR services to extract data from employee documents.</p>
+                        <a class="view-details">View Details →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card reveal" data-project="bhuvi">
+                    <div class="project-img">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Bhuvi – Land Management System</h3>
+                        <p>Developed a role-based land management application for customers, admins, and agents with features like geofencing and leasing.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Angular 15</span>
+                            <span class="tech-tag">C# Web API</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                        </div>
+                        <p class="achievement">Implemented secure workflows for remote land owners and field agents.</p>
+                        <a class="view-details">View Details →</a>
+                    </div>
+                </div>
+                
+                <div class="project-card reveal" data-project="clarity">
+                    <div class="project-img">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Clarity Skincare Web App</h3>
+                        <p>Built a web application that analyzes facial skin conditions using image processing techniques and provides personalized recommendations.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Angular 8</span>
+                            <span class="tech-tag">C# Web API</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">Image Processing</span>
+                        </div>
+                        <p class="achievement">Delivered personalized skincare recommendations based on data-driven analysis.</p>
+                        <a class="view-details">View Details →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Modal content will be loaded here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Let's Connect</h2>
+            <p class="section-subtitle reveal">
+                Interested in collaborating? Feel free to reach out for opportunities.
+            </p>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item reveal">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>satyamanikanta274@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item reveal">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+91 88866 46667</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item reveal">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Based in India</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item reveal">
+                        <div class="contact-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div>
+                            <h3>Resume</h3>
+                            <p>Download my detailed resume for complete information</p>
+                            <a href="Satya_Manikanta_Yalla_MEAN_Developer.pdf" class="btn" target="_blank" download style="margin-top: 10px; padding: 10px 20px; font-size: 0.9rem;">
+                                <i class="fas fa-download"></i> Download Resume
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/ysmani0427" class="social-link" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/Satya0427" class="social-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form reveal">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#home" class="logo" style="color: white;">
+                    <i class="fas fa-code"></i> Satya<span>Dev</span>
+                </a>
+                
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Satya Manikanta Yalla. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Project data
+        const projects = {
+            fois: {
+                title: "FOIS Migration Projects",
+                subtitle: "Indian Railways (CRIS) - Terminal Management System",
+                technologies: ["Angular 15", "Node.js", "REST APIs", "HTML", "CSS", "VB6", "Tuxedo SALT", "WS02", "WebLogic"],
+                description: "Migrated critical Freight Operations Information Systems (FOIS) from legacy VB6 to modern Angular-based web applications for Indian Railways. Worked on Terminal Management System (TMS), Rake Management System (RMS), and Operations Control Centre (OCC) used nationwide.",
+                responsibilities: [
+                    "Designed Angular application architecture, reusable modules, and shared UI components",
+                    "Built reusable Angular table and form components, reducing UI development time by 40%",
+                    "Integrated Angular UI with RESTful services and Tuxedo SALT services via Java layer",
+                    "Supported CI/CD deployments, bug fixing, and testing activities in WebLogic environments",
+                    "Collaborated with cross-functional teams to ensure seamless migration from legacy systems"
+                ],
+                achievements: [
+                    "Successfully migrated critical railway operations systems used nationwide",
+                    "Reduced UI development time by 40% through reusable component library",
+                    "Improved system performance and user experience significantly",
+                    "Enabled real-time freight operations tracking and management"
+                ]
+            },
+            jio: {
+                title: "Jio Humsafar – B2B Logistics Platform",
+                subtitle: "Jio Platforms - B2B Logistics Solution",
+                technologies: ["Angular", "Node.js", "MongoDB", "Redis", "Kafka", "MQTT", "Express.js"],
+                description: "Designed and developed features for Jio's B2B platform serving retailers and distributors across India. Built scalable REST APIs handling high-volume requests for authentication, tracking, and inventory management.",
+                responsibilities: [
+                    "Designed and developed scalable REST APIs handling 50k+ daily requests with 30% improved response time",
+                    "Built authentication, tracking, and inventory management modules",
+                    "Designed optimized MongoDB schemas for vehicles, trips, drivers, alerts, and geofences",
+                    "Implemented real-time tracking using MQTT and Kafka for message queuing",
+                    "Worked in Agile SDLC, contributing across design, development, testing, and deployment"
+                ],
+                achievements: [
+                    "Improved API response time by 30% through optimization and caching strategies",
+                    "Successfully handled 50k+ daily requests with high availability",
+                    "Implemented real-time tracking features for enhanced logistics management",
+                    "Designed scalable architecture to support growing user base"
+                ]
+            },
+            hrms: {
+                title: "HRMS & Inventory Management System",
+                subtitle: "Asset Telematics - Employee & Inventory Management",
+                technologies: ["Angular", "Node.js", "MySQL", "Redis", "AWS S3", "OCR Integration"],
+                description: "Developed a scalable HRMS platform for managing employees and inventory for Middle East blue-collar workforce. The system includes employee management, payroll, attendance, and inventory tracking with AI-powered document processing.",
+                responsibilities: [
+                    "Developed a scalable HRMS platform for managing employees and inventory for Middle East blue-collar workforce",
+                    "Implemented backend services using Node.js, optimized MySQL schemas, and used Redis for caching",
+                    "Integrated AI-based OCR services to extract data from employee documents (IDs, certificates, etc.)",
+                    "Used AWS S3 for secure document storage and retrieval",
+                    "Built role-based access control and reporting modules"
+                ],
+                achievements: [
+                    "Automated employee onboarding process through AI-based OCR integration",
+                    "Reduced manual data entry by 70% through automated document processing",
+                    "Implemented secure document storage with AWS S3 encryption",
+                    "Improved system performance with Redis caching strategies"
+                ]
+            },
+            bhuvi: {
+                title: "Bhuvi – Land Management System",
+                subtitle: "Land Management & Services Platform",
+                technologies: ["Angular 15", "HTML", "CSS", "C# Web API", "SQL Server"],
+                description: "Developed a comprehensive role-based land management application for customers, admins, and agents. The platform enables land services like geofencing, security, cleaning, leasing, and construction management with secure workflows.",
+                responsibilities: [
+                    "Developed a role-based land management application for customers, admins, and agents",
+                    "Enabled land services like geofencing, security, cleaning, leasing, and construction management",
+                    "Implemented secure workflows for remote land owners and field agents",
+                    "Designed intuitive UI/UX for different user roles with appropriate access controls",
+                    "Integrated mapping and geofencing features for land boundary management"
+                ],
+                achievements: [
+                    "Streamlined land management processes through digital transformation",
+                    "Implemented secure workflows for remote property management",
+                    "Enabled geofencing for enhanced property security and monitoring",
+                    "Created role-based access control for different stakeholder types"
+                ]
+            },
+            clarity: {
+                title: "Clarity Skincare Web Application",
+                subtitle: "Tech Mahindra - Skin Analysis Platform",
+                technologies: ["Angular 8", "HTML", "CSS", "C# Web API", "SQL Server", "Image Processing"],
+                description: "Built a web application that analyzes facial skin conditions using image processing techniques. The platform provides personalized skincare recommendations based on data-driven analysis with an intuitive user interface.",
+                responsibilities: [
+                    "Built a web application that analyzes facial skin conditions using image processing techniques",
+                    "Delivered personalized skincare recommendations based on data-driven analysis",
+                    "Designed intuitive UI for seamless user experience and accurate results",
+                    "Integrated with C# Web API backend for image processing and analysis",
+                    "Implemented user management and recommendation tracking features"
+                ],
+                achievements: [
+                    "Created personalized skincare recommendation engine using data analysis",
+                    "Designed intuitive UI resulting in positive user feedback",
+                    "Implemented accurate skin analysis through image processing algorithms",
+                    "Built a scalable architecture to handle user growth"
+                ]
+            }
+        };
+
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.querySelector('i').classList.toggle('fa-bars');
+            mobileToggle.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+        
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', revealOnScroll);
+        // Initial check
+        revealOnScroll();
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Interactive skill cards animation
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Project Modal Functionality
+        const modal = document.getElementById('projectModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalContent = document.getElementById('modalContent');
+        
+        // Open modal when project card is clicked
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't open modal if clicking on the "View Details" link (we'll handle that separately)
+                if (e.target.classList.contains('view-details') || e.target.closest('.view-details')) {
+                    return;
+                }
+                
+                const projectId = this.getAttribute('data-project');
+                openProjectModal(projectId);
+            });
+        });
+        
+        // Also handle clicks on "View Details" links
+        document.querySelectorAll('.view-details').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent card click event
+                const projectCard = this.closest('.project-card');
+                const projectId = projectCard.getAttribute('data-project');
+                openProjectModal(projectId);
+            });
+        });
+        
+        // Close modal when close button is clicked
+        modalClose.addEventListener('click', () => {
+            closeProjectModal();
+        });
+        
+        // Close modal when clicking outside the modal content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeProjectModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeProjectModal();
+            }
+        });
+        
+        function openProjectModal(projectId) {
+            const project = projects[projectId];
+            
+            // Build modal content
+            let modalHTML = `
+                <h2 class="modal-title">${project.title}</h2>
+                <p class="modal-subtitle">${project.subtitle}</p>
+                
+                <div class="modal-content">
+                    <div class="modal-section">
+                        <h4><i class="fas fa-info-circle"></i> Project Description</h4>
+                        <p>${project.description}</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4><i class="fas fa-tools"></i> Technologies Used</h4>
+                        <div class="project-tech">
+                            ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4><i class="fas fa-tasks"></i> Key Responsibilities</h4>
+                        <ul class="achievements-list">
+                            ${project.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4><i class="fas fa-trophy"></i> Key Achievements</h4>
+                        <ul class="achievements-list">
+                            ${project.achievements.map(ach => `<li>${ach}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            modalContent.innerHTML = modalHTML;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+        }
+        
+        function closeProjectModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+        
+        // Initialize with first project details for reference
+        // openProjectModal('fois');
+    </script>
+</body>
+</html>
