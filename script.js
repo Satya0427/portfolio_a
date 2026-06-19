@@ -1,113 +1,343 @@
-// Lightweight interactions: typed text, reveal on scroll, modal, nav download
-document.addEventListener('DOMContentLoaded', () => {
-  // Insert current year
-  document.getElementById('year').textContent = new Date().getFullYear();
+/* ============================================================
+   PORTFOLIO JAVASCRIPT – SATYA MANIKANTA YALLA
+   Handles: Particles, Typewriter, Scroll, Counters, Tabs, Form
+   ============================================================ */
 
-  // Typed effect
-  const phrases = [
-    'Angular • Node.js • REST APIs',
-    'Reusable UI components • Scalable backends',
-    'AWS S3 • Nginx • CI/CD'
-  ];
-  const typeEl = document.getElementById('typeText');
-  let pi = 0, ci = 0, deleting = false;
-  function tick(){
-    const txt = phrases[pi];
-    if(!deleting){
-      typeEl.textContent = txt.slice(0, ci+1);
-      ci++;
-      if(ci === txt.length){ deleting = true; setTimeout(tick, 900); return; }
-    } else {
-      typeEl.textContent = txt.slice(0, ci-1);
-      ci--;
-      if(ci === 0){ deleting=false; pi = (pi+1)%phrases.length; }
+'use strict';
+
+// ============================================================
+// 1. PARTICLE SYSTEM
+// ============================================================
+(function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let animId;
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function Particle() {
+    this.reset();
+  }
+
+  Particle.prototype.reset = function () {
+    this.x  = Math.random() * canvas.width;
+    this.y  = Math.random() * canvas.height;
+    this.r  = Math.random() * 1.8 + 0.4;
+    this.vx = (Math.random() - 0.5) * 0.35;
+    this.vy = (Math.random() - 0.5) * 0.35;
+    this.alpha = Math.random() * 0.5 + 0.1;
+    const palette = ['38,189,248', '99,102,241', '168,85,247', '16,185,129'];
+    this.color = palette[Math.floor(Math.random() * palette.length)];
+  };
+
+  Particle.prototype.update = function () {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < -10 || this.x > canvas.width + 10 ||
+        this.y < -10 || this.y > canvas.height + 10) {
+      this.reset();
     }
-    setTimeout(tick, deleting ? 40 : 60);
-  }
-  tick();
+  };
 
-  // Simple scroll reveal
-  const observers = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting) e.target.classList.add('show');
-    });
-  }, {threshold: 0.12});
-  document.querySelectorAll('.reveal').forEach(el => observers.observe(el));
+  Particle.prototype.draw = function () {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
+    ctx.fill();
+    ctx.restore();
+  };
 
-  // Project modal
-  const modal = document.getElementById('modal');
-  const modalContent = document.getElementById('modalContent');
-  const modalClose = document.getElementById('modalClose');
-  document.querySelectorAll('[data-open]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-open');
-      openProject(id);
-    });
-  });
-  function openProject(id){
-    const data = {
-      1: {
-        title: 'FOIS Migration — Indian Railways',
-        body: `<p>Led migration of legacy Freight Operations apps (TMS, RMS, OCC) to Angular; built reusable tables and modules, integrated with backend services.</p><p><strong>Tech:</strong> Angular 15 · Node.js · WebLogic</p>`
-      },
-      2: {
-        title: 'Bhuvi — Land Management System',
-        body: `<p>Role-based land management for owners/agents with geofencing and secure workflows.</p><p><strong>Tech:</strong> Angular · C# Web API · SQL Server</p>`
-      },
-      3: {
-        title: 'HRMS & Inventory',
-        body: `<p>Scalable HRMS for managing employees and inventory. AWS S3 for document storage, Redis cache for performance.</p><p><strong>Tech:</strong> Node.js · MySQL · Redis · AWS S3</p>`
-      },
-      4: {
-        title: 'Jio Humsafar — B2B Logistics',
-        body: `<p>Designed features and scalable REST APIs handling high throughput with improved response times.</p><p><strong>Tech:</strong> Angular · Node.js · MongoDB · Kafka</p>`
+  function drawConnections() {
+    const maxDist = 120;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          const alpha = (1 - dist / maxDist) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
       }
-    };
-    const item = data[id];
-    modalContent.innerHTML = `<h3 style="margin-top:0">${item.title}</h3>${item.body}<p style="margin-top:12px"><em>Want code samples or a dev walkthrough? I can prepare a case-specific write-up.</em></p>`;
-    modal.setAttribute('aria-hidden','false');
+    }
   }
-  modalClose.addEventListener('click', () => modal.setAttribute('aria-hidden','true'));
-  modal.addEventListener('click', (e) => { if(e.target === modal) modal.setAttribute('aria-hidden','true'); });
 
-  // Contact send (mock)
-  document.getElementById('sendMsg').addEventListener('click', () => {
-    const form = document.getElementById('contactForm');
-    const fd = new FormData(form);
-    // Basic UI feedback (in real site, send via API)
-    alert(`Thanks ${fd.get('name') || ''}! Message queued to ${fd.get('email') || ''}.`);
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawConnections();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function init() {
+    resize();
+    const count = Math.min(Math.floor((canvas.width * canvas.height) / 14000), 100);
+    particles = Array.from({ length: count }, () => new Particle());
+    if (animId) cancelAnimationFrame(animId);
+    loop();
+  }
+
+  window.addEventListener('resize', init);
+  init();
+}());
+
+// ============================================================
+// 2. TYPEWRITER EFFECT
+// ============================================================
+(function initTypewriter() {
+  const el = document.getElementById('typewriter');
+  if (!el) return;
+
+  const phrases = [
+    'Enterprise Web Apps',
+    'Scalable REST APIs',
+    'Angular Frontends',
+    'Cloud Platforms',
+    'Real-Time Systems',
+    'SSO with Keycloak',
+  ];
+
+  let phraseIdx = 0, charIdx = 0, deleting = false;
+
+  function tick() {
+    const current = phrases[phraseIdx];
+    el.textContent = deleting
+      ? current.slice(0, charIdx--)
+      : current.slice(0, charIdx++);
+
+    let delay = deleting ? 60 : 90;
+    if (!deleting && charIdx > current.length) {
+      delay = 1800;
+      deleting = true;
+    } else if (deleting && charIdx < 0) {
+      deleting = false;
+      phraseIdx = (phraseIdx + 1) % phrases.length;
+      charIdx = 0;
+      delay = 400;
+    }
+    setTimeout(tick, delay);
+  }
+
+  setTimeout(tick, 800);
+}());
+
+// ============================================================
+// 3. NAVIGATION – SCROLL & MOBILE TOGGLE
+// ============================================================
+(function initNav() {
+  const navbar    = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('nav-links');
+  const btt       = document.getElementById('back-to-top');
+  const allLinks  = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    navbar?.classList.toggle('scrolled', y > 50);
+    btt?.classList.toggle('visible', y > 400);
+
+    // Active section highlighting
+    const sections = document.querySelectorAll('section[id]');
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 120;
+      if (y >= top) current = sec.id;
+    });
+    allLinks.forEach(a => {
+      a.classList.toggle('active', a.dataset.section === current);
+    });
+  });
+
+  hamburger?.addEventListener('click', () => {
+    navLinks?.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (navLinks?.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity   = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+
+  // Close mobile nav on link click
+  document.querySelectorAll('.nav-link').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks?.classList.remove('open');
+      const spans = hamburger?.querySelectorAll('span');
+      spans?.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    });
+  });
+
+  btt?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}());
+
+// ============================================================
+// 4. SCROLL REVEAL
+// ============================================================
+(function initReveal() {
+  const els = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+  if (!els.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  els.forEach(el => observer.observe(el));
+}());
+
+// ============================================================
+// 5. COUNTER ANIMATION
+// ============================================================
+(function initCounters() {
+  const counters = document.querySelectorAll('.counter');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = +el.dataset.target;
+      const duration = 1800;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current);
+        if (current >= target) clearInterval(timer);
+      }, 16);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => observer.observe(c));
+}());
+
+// ============================================================
+// 6. SKILLS TABS + BAR ANIMATION
+// ============================================================
+(function initSkills() {
+  const tabs   = document.querySelectorAll('.skills-tab');
+  const panels = document.querySelectorAll('.skills-panel');
+
+  function activatePanel(tab) {
+    const target = tab.dataset.tab;
+    tabs.forEach(t   => t.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.querySelector(`.skills-panel[data-panel="${target}"]`);
+    if (!panel) return;
+    panel.classList.add('active');
+    // animate bars
+    setTimeout(() => {
+      panel.querySelectorAll('.skill-fill').forEach(fill => {
+        fill.style.width = fill.dataset.width + '%';
+      });
+    }, 100);
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => activatePanel(tab)));
+
+  // Trigger first panel bars when section enters viewport
+  const skillsSection = document.getElementById('skills');
+  let triggered = false;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !triggered) {
+        triggered = true;
+        const activeTab = document.querySelector('.skills-tab.active');
+        if (activeTab) activatePanel(activeTab);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  if (skillsSection) observer.observe(skillsSection);
+}());
+
+// ============================================================
+// 7. CONTACT FORM
+// ============================================================
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const btn     = document.getElementById('form-submit-btn');
+  const success = document.getElementById('form-success');
+  const form    = document.getElementById('contact-form');
+
+  btn.innerHTML = '<span>Sending…</span>';
+  btn.disabled  = true;
+  btn.style.opacity = '0.7';
+
+  setTimeout(() => {
+    btn.innerHTML = `<span>Send Message</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>`;
+    btn.disabled  = false;
+    btn.style.opacity = '';
+    success?.classList.add('visible');
     form.reset();
-  });
+    setTimeout(() => success?.classList.remove('visible'), 5000);
+  }, 1400);
+}
 
-  // Download resume link — points to provided PDF filename; replace path as needed
-  document.getElementById('downloadResume').addEventListener('click', () => {
-    window.location.href = 'Satya_Manikanta_Yalla_MEAN_Developer.pdf';
-  });
+// ============================================================
+// 8. SCROLL INDICATOR HIDE
+// ============================================================
+window.addEventListener('scroll', () => {
+  const si = document.getElementById('scroll-indicator');
+  if (si) si.style.opacity = window.scrollY > 80 ? '0' : '1';
+}, { passive: true });
 
-  // Small parallax tilt for media card
-  const media = document.getElementById('mediaCard');
-  if(media){
-    media.addEventListener('mousemove', (e) => {
-      const rect = media.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      media.style.transform = `rotateX(${ -y * 6 }deg) rotateY(${ x * 8 }deg) translateZ(6px)`;
+// ============================================================
+// 9. SMOOTH HOVER TILT ON PROJECT CARDS
+// ============================================================
+(function initTilt() {
+  document.querySelectorAll('.project-card, .stat-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect   = card.getBoundingClientRect();
+      const x      = e.clientX - rect.left;
+      const y      = e.clientY - rect.top;
+      const cx     = rect.width  / 2;
+      const cy     = rect.height / 2;
+      const rx     = (y - cy) / cy * 5;
+      const ry     = (cx - x) / cx * 5;
+      card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-8px)`;
     });
-    media.addEventListener('mouseleave', () => { media.style.transform = ''; });
-  }
-
-  // Mobile burger toggle
-  const burger = document.querySelector('.burger');
-  const navLinks = document.querySelector('.nav-links');
-  if(burger){
-    burger.addEventListener('click', () => {
-      if(navLinks.style.display === 'flex') navLinks.style.display = '';
-      else navLinks.style.display = 'flex';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.gap = '10px';
-      navLinks.style.padding = '12px';
-      navLinks.style.background = 'rgba(255,255,255,0.02)';
-      navLinks.style.borderRadius = '10px';
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
     });
-  }
-});
+  });
+}());
+
+// ============================================================
+// 10. AURORA BG GRADIENT FOLLOW MOUSE
+// ============================================================
+(function initAurora() {
+  const overlay = document.querySelector('.hero-bg-overlay');
+  if (!overlay) return;
+  document.addEventListener('mousemove', e => {
+    const xPct = (e.clientX / window.innerWidth  * 100).toFixed(1);
+    const yPct = (e.clientY / window.innerHeight * 100).toFixed(1);
+    overlay.style.background = `
+      radial-gradient(ellipse 80% 60% at ${xPct}% ${yPct}%, rgba(56,189,248,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at ${100 - xPct}% ${100 - yPct}%, rgba(168,85,247,0.08) 0%, transparent 60%)
+    `;
+  });
+}());
+
+console.log('%c SMY Portfolio Loaded ✓ ', 'background: linear-gradient(135deg,#38bdf8,#6366f1,#a855f7); color:#fff; padding:8px 16px; border-radius:6px; font-weight:bold;');

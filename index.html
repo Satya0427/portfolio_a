@@ -1,589 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satya Manikanta Yalla - MEAN Stack Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #F9FAFB;
-            --bg-secondary: #FFFFFF;
-            --accent-green: #10B981;
-            --text-primary: #1F2937;
-            --text-secondary: #6B7280;
-            --border: #E5E7EB;
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --glow: 0 0 15px rgba(16, 185, 129, 0.4);
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            overflow-x: hidden;
-        }
-        /* Wavy Nav */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--bg-secondary);
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: var(--shadow);
-            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-        nav a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        nav a:hover {
-            color: var(--accent-green);
-            text-shadow: var(--glow);
-        }
-        /* Hero with Waves */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background: var(--bg-primary);
-            overflow: hidden;
-        }
-        .wave-bg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path fill="%2310B981" opacity="0.1" d="M0 100Q250 50 500 100T1000 100V200H0z"/></svg>');
-            animation: wave 10s ease-in-out infinite alternate;
-        }
-        @keyframes wave {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(20px); }
-        }
-        .hero-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent-green), #059669);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: burst 1s ease-out;
-        }
-        @keyframes burst {
-            0% { opacity: 0; transform: scale(0.5) rotate(180deg); }
-            100% { opacity: 1; transform: scale(1) rotate(0); }
-        }
-        .hero-content .title {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: var(--accent-green);
-        }
-        .typing-text {
-            font-size: 1.3rem;
-            border-right: 3px solid var(--accent-green);
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3s steps(40) forwards, blink 0.75s infinite;
-        }
-        @keyframes typing { from { width: 0; } to { width: 100%; } }
-        @keyframes blink { 0%, 50% { border-color: var(--accent-green); } 51%, 100% { border-color: transparent; } }
-        /* Particles */
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            animation: float 4s ease-in-out infinite;
-        }
-        .particle:nth-child(1) { top: 30%; left: 20%; animation-delay: 0s; }
-        .particle:nth-child(2) { top: 50%; right: 25%; animation-delay: 1s; }
-        .particle:nth-child(3) { bottom: 40%; left: 15%; animation-delay: 2s; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        /* Sections */
-        section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h2 {
-            font-size: 2.8rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--text-primary);
-        }
-        /* About Card */
-        .about-card {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow);
-            transition: all 0.4s ease;
-            text-align: center;
-        }
-        .about-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-        .about-card p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 2rem; }
-        /* Skills Carousel */
-        .skills-carousel {
-            display: flex;
-            overflow: hidden;
-            position: relative;
-            margin-top: 2rem;
-        }
-        .skills-track {
-            display: flex;
-            animation: scroll 20s linear infinite;
-        }
-        .skill-item {
-            min-width: 250px;
-            padding: 1.5rem;
-            background: var(--bg-secondary);
-            margin-right: 1rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .skill-item:hover { transform: scale(1.05); }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .skill-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-        .skill-progress {
-            height: 100%;
-            background: var(--accent-green);
-            border-radius: 3px;
-            width: 0;
-            transition: width 1.5s ease;
-        }
-        /* Experience Timeline */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--accent-green);
-            transform: translateX(-50%);
-        }
-        .timeline-item {
-            position: relative;
-            margin: 2rem 0;
-            width: 45%;
-            background: var(--bg-secondary);
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            transition: all 0.4s ease;
-        }
-        .timeline-item:nth-child(odd) { left: 0; }
-        .timeline-item:nth-child(even) { left: 55%; }
-        .timeline-item:hover { transform: scale(1.02); box-shadow: var(--glow); }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: -26px;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-green);
-            border-radius: 50%;
-        }
-        .timeline-item:nth-child(even)::before { left: -26px; right: auto; }
-        /* Projects Flip Cards */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .project-flip {
-            perspective: 1000px;
-            height: 250px;
-        }
-        .project-card {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .project-card:hover { transform: rotateY(180deg); }
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .back { transform: rotateY(180deg); }
-        .front h3 { color: var(--accent-green); }
-        /* Education Grid */
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .edu-item {
-            background: var(--bg-secondary);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-        .edu-item:hover { transform: translateY(-5px); box-shadow: var(--glow); }
-        /* Contact & Floating CTA */
-        .contact {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-        }
-        .contact form { display: flex; flex-direction: column; gap: 1rem; }
-        .contact input, .contact textarea {
-            padding: 1rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            transition: border-color 0.3s ease;
-        }
-        .contact input:focus, .contact textarea:focus { border-color: var(--accent-green); outline: none; box-shadow: var(--glow); }
-        .contact button {
-            padding: 1rem;
-            background: var(--accent-green);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .contact button:hover { box-shadow: var(--glow); transform: scale(1.02); }
-        .floating-cta {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--accent-green);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-        .floating-cta:hover { transform: scale(1.1); box-shadow: var(--glow); }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .timeline::before { left: 20px; }
-            .timeline-item { width: 100%; left: 0 !important; }
-            .timeline-item::before { left: 0 !important; right: auto; }
-            nav ul { gap: 1rem; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Satya Manikanta Yalla – Full-Stack MEAN Developer with 4+ years of experience in Angular, Node.js, MongoDB, and Cloud platforms. Available for exciting opportunities." />
+  <meta name="keywords" content="Satya Manikanta Yalla, MEAN Stack Developer, Angular Developer, Node.js, Full Stack Developer, Keycloak, SSO, Portfolio" />
+  <meta property="og:title" content="Satya Manikanta Yalla | Full-Stack MEAN Developer" />
+  <meta property="og:description" content="4+ years building enterprise Angular & Node.js applications. Expert in cloud platforms, Keycloak SSO, real-time systems, and scalable APIs." />
+  <meta property="og:type" content="website" />
+  <title>Satya Manikanta Yalla | Full-Stack MEAN Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
 
-    <section id="home" class="hero">
-        <div class="wave-bg"></div>
-        <div class="hero-content">
-            <h1>Satya Manikanta Yalla</h1>
-            <div class="title">MEAN Stack Developer</div>
-            <div class="typing-text">Building scalable enterprise apps with Angular & Node.js</div>
+  <!-- PARTICLE CANVAS -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo" id="nav-logo">
+        <span class="logo-bracket">&lt;</span>
+        <span class="logo-name">SMY</span>
+        <span class="logo-bracket">/&gt;</span>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+        <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
+        <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+        <li><a href="#achievements" class="nav-link" data-section="achievements">Achievements</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+      <a href="mailto:satyamanikanta274@gmail.com" class="nav-cta" id="nav-cta">Hire Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="hero-section">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge reveal-up" id="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Available for Opportunities</span>
+      </div>
+      <div class="hero-text reveal-up">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-name">
+          <span class="name-first">Satya Manikanta</span>
+          <span class="name-last">Yalla</span>
+        </h1>
+        <div class="hero-role-wrapper">
+          <span class="role-prefix">I build&nbsp;</span>
+          <span class="hero-role-text" id="typewriter"></span>
+          <span class="cursor-blink">|</span>
         </div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </section>
-
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="about-card">
-            <p>Angular & Node.js Full-Stack Developer with 4+ years of experience in building enterprise-scale and cloud-ready applications. Strong expertise in Angular (8–15+), Node.js, Express.js, REST APIs, and scalable UI architecture. Hands-on with MongoDB, MySQL, Redis, AWS S3, Linux-based Nginx deployments, and API documentation using Swagger. Proven track record delivering high-impact solutions for government and enterprise clients using Agile methodologies.</p>
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="https://www.linkedin.com/in/ysmani0427" target="_blank" style="margin-right: 1rem; color: var(--accent-green);">LinkedIn</a>
-                <a href="https://github.com/Satya0427" target="_blank" style="color: var(--accent-green);">GitHub</a>
-            </div>
+        <p class="hero-tagline">
+          4+ Years · MEAN Stack · Angular v12–20 · Keycloak SSO · Real-Time Systems
+        </p>
+      </div>
+      <div class="hero-actions reveal-up">
+        <a href="#projects" class="btn btn-primary" id="view-projects-btn">
+          <span>View My Work</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-secondary" id="contact-btn">Contact Me</a>
+      </div>
+      <div class="hero-socials reveal-up">
+        <a href="mailto:satyamanikanta274@gmail.com" class="social-link" id="email-link" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/ysmani0427" target="_blank" class="social-link" id="linkedin-link" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com/Satya0427" target="_blank" class="social-link" id="github-link" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+        <a href="tel:+918886646667" class="social-link" id="phone-link" title="Phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.5 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.41 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-image-wrapper reveal-right">
+      <div class="hero-glow"></div>
+      <div class="hero-avatar-ring">
+        <img src="profile_avatar.png" alt="Satya Manikanta Yalla - MEAN Stack Developer" class="hero-avatar" id="hero-avatar" />
+      </div>
+      <div class="floating-card card-1">
+        <span class="fc-icon">⚡</span>
+        <div>
+          <p class="fc-value">50K+</p>
+          <p class="fc-label">API Req/Day</p>
         </div>
-    </section>
-
-    <section id="skills">
-        <h2>Technical Skills</h2>
-        <div class="skills-carousel">
-            <div class="skills-track" id="skillsTrack">
-                <div class="skill-item">
-                    <h3>Frontend</h3>
-                    <div>Angular (8–15+), TypeScript, HTML5, CSS3</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>Backend</h3>
-                    <div>Node.js, Express.js, REST APIs</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>Databases</h3>
-                    <div>MongoDB, MySQL, Redis</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>DevOps & Tools</h3>
-                    <div>Nginx, Linux, AWS S3, CI/CD, Git, Swagger</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>Angular Concepts</h3>
-                    <div>RxJS, Lazy Loading, Guards, Interceptors, Signals</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 92%;"></div></div>
-                </div>
-                <!-- Duplicate for infinite scroll -->
-                <div class="skill-item">
-                    <h3>Frontend</h3>
-                    <div>Angular (8–15+), TypeScript, HTML5, CSS3</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>Backend</h3>
-                    <div>Node.js, Express.js, REST APIs</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>Databases</h3>
-                    <div>MongoDB, MySQL, Redis</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>DevOps & Tools</h3>
-                    <div>Nginx, Linux, AWS S3, CI/CD, Git, Swagger</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <h3>Angular Concepts</h3>
-                    <div>RxJS, Lazy Loading, Guards, Interceptors, Signals</div>
-                    <div class="skill-bar"><div class="skill-progress" style="width: 92%;"></div></div>
-                </div>
-            </div>
+      </div>
+      <div class="floating-card card-2">
+        <span class="fc-icon">🚀</span>
+        <div>
+          <p class="fc-value">4+</p>
+          <p class="fc-label">Years Exp.</p>
         </div>
-    </section>
-
-    <section id="experience">
-        <h2>Professional Experience</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <h3>MEAN Stack Developer</h3>
-                <p><strong>Asset Telematics Pvt Ltd</strong> | November 2022 – Present</p>
-                <p>Developing scalable HRMS and inventory systems for Middle East workforce.</p>
-            </div>
-            <div class="timeline-item">
-                <h3>Angular Developer</h3>
-                <p><strong>Aagama Consulting Services</strong> | November 2022 – September 2024</p>
-                <p>Focused on FOIS migration projects for Indian Railways.</p>
-            </div>
-            <div class="timeline-item">
-                <h3>Angular Developer</h3>
-                <p><strong>Tech Mahindra Ltd.</strong> | September 2021 – August 2022</p>
-                <p>Built web applications like Clarity Skincare with image processing.</p>
-            </div>
-            <div class="timeline-item">
-                <h3>Trainee Apprentice</h3>
-                <p><strong>Cyient Ltd.</strong> | July 2020 – August 2021</p>
-                <p>Gained foundational experience in software development.</p>
-            </div>
+      </div>
+      <div class="floating-card card-3">
+        <span class="fc-icon">🏆</span>
+        <div>
+          <p class="fc-value">6+</p>
+          <p class="fc-label">Projects</p>
         </div>
-    </section>
+      </div>
+    </div>
+    <div class="scroll-indicator" id="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>Scroll Down</span>
+    </div>
+  </section>
 
-    <section id="projects">
-        <h2>Project Experience</h2>
-        <div class="projects-grid">
-            <div class="project-flip">
-                <div class="project-card">
-                    <div class="front">
-                        <h3>FOIS Migration Projects | Indian Railways</h3>
-                        <p>Migrated VB6 to Angular; reduced UI time by 40%.</p>
-                    </div>
-                    <div class="back">
-                        <p>Technologies: Angular 15, Node.js, REST APIs<br>Integrated Tuxedo SALT; CI/CD in WebLogic.</p>
-                    </div>
-                </div>
+  <!-- ABOUT SECTION -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Who I Am</span>
+        <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal-left">
+          <p class="about-lead">I'm a passionate <strong>Full-Stack MEAN Developer</strong> with 4+ years of experience crafting enterprise-scale applications that power real-world operations — from Indian Railways to Reliance Jio's logistics fleet.</p>
+          <p>My expertise spans the entire stack: architecting Angular frontends with lazy-loaded modules, RxJS, and NgRx state management; designing scalable Node.js/Express.js APIs handling 50,000+ daily requests; and implementing robust cloud security with Keycloak SSO, OAuth 2.0, and OIDC.</p>
+          <p>I've delivered mission-critical solutions for government agencies (CRIS/Indian Railways), telecom giants (Reliance Jio), and Middle East enterprises — bringing measurable impact through Redis-powered 30% latency improvements, AI-OCR automation, and real-time IoT fleet tracking.</p>
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              <span>B.Tech Mechanical Engineering, JNTUK (2020)</span>
             </div>
-            <div class="project-flip">
-                <div class="project-card">
-                    <div class="front">
-                        <h3>Bhuvi – Land Management System</h3>
-                        <p>Role-based app for geofencing & leasing.</p>
-                    </div>
-                    <div class="back">
-                        <p>Technologies: Angular 15, C# Web API, SQL Server<br>Secure workflows for remote users.</p>
-                    </div>
-                </div>
+            <div class="highlight-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              <span>Agile/Scrum certified practitioner across full SDLC</span>
             </div>
-            <div class="project-flip">
-                <div class="project-card">
-                    <div class="front">
-                        <h3>Clarity Skincare Web App</h3>
-                        <p>Skin analysis with personalized recs.</p>
-                    </div>
-                    <div class="back">
-                        <p>Technologies: Angular 8, C# Web API, SQL Server<br>Image processing for accurate UI.</p>
-                    </div>
-                </div>
+            <div class="highlight-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              <span>Currently implementing private cloud platform (AWS/GCP-like)</span>
             </div>
-            <div class="project-flip">
-                <div class="project-card">
-                    <div class="front">
-                        <h3>HRMS & Inventory System</h3>
-                        <p>Scalable platform for blue-collar workforce.</p>
-                    </div>
-                    <div class="back">
-                        <p>Technologies: Angular, Node.js, MySQL, Redis, AWS S3<br>AI OCR integration.</p>
-                    </div>
-                </div>
+            <div class="highlight-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+              <span>Nationwide deployment impact – Indian Railways FOIS</span>
             </div>
-            <div class="project-flip">
-                <div class="project-card">
-                    <div class="front">
-                        <h3>Jio Humsafar – B2B Logistics</h3>
-                        <p>Platform for retailers; 30% faster responses.</p>
-                    </div>
-                    <div class="back">
-                        <p>Technologies: Angular, Node.js, MongoDB, Kafka, MQTT<br>Optimized schemas in Agile.</p>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <a href="mailto:satyamanikanta274@gmail.com?subject=Job Opportunity" class="btn btn-primary" id="about-contact-btn">
+            <span>Let's Talk</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
-    </section>
-
-    <section id="education">
-        <h2>Education</h2>
-        <div class="education-grid">
-            <div class="edu-item">
-                <h3>B. Tech (Mech) – JNTUK</h3>
-                <p>68%</p>
-            </div>
-            <div class="edu-item">
-                <h3>Diploma (Mech) – Aditya Engineering College</h3>
-                <p>75%</p>
-            </div>
-            <div class="edu-item">
-                <h3>SSC – Vignana Jyothi School</h3>
-                <p>87%</p>
-            </div>
+        <div class="about-stats reveal-right">
+          <div class="stat-card" id="stat-1">
+            <div class="stat-icon">🏗️</div>
+            <div class="stat-number counter" data-target="4">0</div>
+            <div class="stat-suffix">+ Years</div>
+            <p class="stat-label">Full-Stack Experience</p>
+          </div>
+          <div class="stat-card" id="stat-2">
+            <div class="stat-icon">🚀</div>
+            <div class="stat-number counter" data-target="50">0</div>
+            <div class="stat-suffix">K+</div>
+            <p class="stat-label">Daily API Requests</p>
+          </div>
+          <div class="stat-card" id="stat-3">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-number counter" data-target="30">0</div>
+            <div class="stat-suffix">%</div>
+            <p class="stat-label">Latency Reduction</p>
+          </div>
+          <div class="stat-card" id="stat-4">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-number counter" data-target="40">0</div>
+            <div class="stat-suffix">%</div>
+            <p class="stat-label">Onboarding Time Cut</p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <div class="contact">
-            <form id="contactForm">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea rows="5" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-            <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">Email: satyamanikanta274@gmail.com | Phone: +91 88866 46667</p>
+  <!-- SKILLS SECTION -->
+  <section id="skills" class="section skills-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">What I Know</span>
+        <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="skills-tabs reveal-up" id="skills-tabs">
+        <button class="skills-tab active" data-tab="frontend" id="tab-frontend">Frontend</button>
+        <button class="skills-tab" data-tab="backend" id="tab-backend">Backend</button>
+        <button class="skills-tab" data-tab="databases" id="tab-databases">Databases</button>
+        <button class="skills-tab" data-tab="cloud" id="tab-cloud">Cloud & DevOps</button>
+        <button class="skills-tab" data-tab="messaging" id="tab-messaging">Messaging</button>
+        <button class="skills-tab" data-tab="tools" id="tab-tools">Tools</button>
+      </div>
+
+      <div class="skills-content" id="skills-content">
+        <!-- Frontend -->
+        <div class="skills-panel active" data-panel="frontend">
+          <div class="skills-grid">
+            <div class="skill-item"><div class="skill-icon angular"></div><span>Angular v8–20</span><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+            <div class="skill-item"><div class="skill-icon ts"></div><span>TypeScript</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+            <div class="skill-item"><div class="skill-icon js"></div><span>JavaScript ES6+</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-icon rxjs"></div><span>RxJS</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+            <div class="skill-item"><div class="skill-icon ngrx"></div><span>NgRx State Mgmt</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-item"><div class="skill-icon html"></div><span>HTML5 / CSS3 / SCSS</span><div class="skill-bar"><div class="skill-fill" data-width="93"></div></div></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Lazy Loading</span>
+            <span class="skill-tag">Route Guards</span>
+            <span class="skill-tag">HTTP Interceptors</span>
+            <span class="skill-tag">Angular Signals</span>
+            <span class="skill-tag">Component Libraries</span>
+            <span class="skill-tag">Responsive Design</span>
+          </div>
         </div>
-    </section>
 
-    <button class="floating-cta" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">📧</button>
+        <!-- Backend -->
+        <div class="skills-panel" data-panel="backend">
+          <div class="skills-grid">
+            <div class="skill-item"><div class="skill-icon node"></div><span>Node.js</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+            <div class="skill-item"><div class="skill-icon express"></div><span>Express.js</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-icon keycloak"></div><span>Keycloak SSO</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+            <div class="skill-item"><div class="skill-icon oauth"></div><span>OAuth 2.0 / OIDC</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-item"><div class="skill-icon jwt"></div><span>JWT Auth</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-icon rbac"></div><span>RBAC / Multi-tenant</span><div class="skill-bar"><div class="skill-fill" data-width="87"></div></div></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">RESTful API Design</span>
+            <span class="skill-tag">Middleware</span>
+            <span class="skill-tag">API Gateway</span>
+            <span class="skill-tag">Microservices</span>
+            <span class="skill-tag">Swagger/OpenAPI</span>
+          </div>
+        </div>
 
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', e => {
-                e.preventDefault();
-                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
+        <!-- Databases -->
+        <div class="skills-panel" data-panel="databases">
+          <div class="skills-grid">
+            <div class="skill-item"><div class="skill-icon mongo"></div><span>MongoDB</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-icon mysql"></div><span>MySQL</span><div class="skill-bar"><div class="skill-fill" data-width="87"></div></div></div>
+            <div class="skill-item"><div class="skill-icon redis"></div><span>Redis</span><div class="skill-bar"><div class="skill-fill" data-width="83"></div></div></div>
+            <div class="skill-item"><div class="skill-icon sql"></div><span>SQL Server</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Aggregation Pipelines</span>
+            <span class="skill-tag">Schema Design</span>
+            <span class="skill-tag">Query Optimization</span>
+            <span class="skill-tag">Indexing Strategies</span>
+            <span class="skill-tag">Session Caching</span>
+          </div>
+        </div>
 
-        // Skill progress on view
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.querySelectorAll('.skill-progress').forEach(bar => {
-                        bar.style.width = bar.style.width;
-                    });
-                }
-            });
-        });
-        observer.observe(document.getElementById('skills'));
+        <!-- Cloud -->
+        <div class="skills-panel" data-panel="cloud">
+          <div class="skills-grid">
+            <div class="skill-item"><div class="skill-icon aws"></div><span>AWS S3</span><div class="skill-bar"><div class="skill-fill" data-width="82"></div></div></div>
+            <div class="skill-item"><div class="skill-icon nginx"></div><span>Nginx</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+            <div class="skill-item"><div class="skill-icon docker"></div><span>Docker</span><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div>
+            <div class="skill-item"><div class="skill-icon opennebula"></div><span>OpenNebula</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-item"><div class="skill-icon linux"></div><span>Linux</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+            <div class="skill-item"><div class="skill-icon wso2"></div><span>WSO2 / WebLogic</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">CI/CD Pipelines</span>
+            <span class="skill-tag">Reverse Proxy</span>
+            <span class="skill-tag">Load Balancing</span>
+            <span class="skill-tag">Signed URLs</span>
+            <span class="skill-tag">Lifecycle Policies</span>
+            <span class="skill-tag">Krodent APIs</span>
+          </div>
+        </div>
 
-        // Infinite carousel pause on hover
-        const track = document.getElementById('skillsTrack');
-        track.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
-        track.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
+        <!-- Messaging -->
+        <div class="skills-panel" data-panel="messaging">
+          <div class="skills-grid">
+            <div class="skill-item"><div class="skill-icon kafka"></div><span>Apache Kafka</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-item"><div class="skill-icon mqtt"></div><span>MQTT</span><div class="skill-bar"><div class="skill-fill" data-width="83"></div></div></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Event-Driven Architecture</span>
+            <span class="skill-tag">Real-Time Streaming</span>
+            <span class="skill-tag">IoT Device Communication</span>
+            <span class="skill-tag">High-Volume Pipelines</span>
+            <span class="skill-tag">Geofencing</span>
+          </div>
+        </div>
 
-        // Form
-        document.getElementById('contactForm').addEventListener('submit', e => {
-            e.preventDefault();
-            alert('Message sent! (Hook to backend for emails)');
-            e.target.reset();
-        });
+        <!-- Tools -->
+        <div class="skills-panel" data-panel="tools">
+          <div class="skills-grid">
+            <div class="skill-item"><div class="skill-icon git"></div><span>Git / GitHub / GitLab</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-icon postman"></div><span>Postman</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+            <div class="skill-item"><div class="skill-icon jira"></div><span>JIRA</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-item"><div class="skill-icon vscode"></div><span>VS Code</span><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Swagger/OpenAPI</span>
+            <span class="skill-tag">Agile/Scrum</span>
+            <span class="skill-tag">Code Review</span>
+            <span class="skill-tag">Technical Documentation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Parallax wave
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            document.querySelector('.wave-bg').style.transform = `translateY(${scrolled * 0.2}px)`;
-        });
-    </script>
+  <!-- EXPERIENCE SECTION -->
+  <section id="experience" class="section experience-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">My Journey</span>
+        <h2 class="section-title">Professional <span class="gradient-text">Experience</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal-left" id="exp-1">
+          <div class="timeline-marker">
+            <div class="marker-dot current"></div>
+            <div class="marker-line"></div>
+          </div>
+          <div class="timeline-card">
+            <div class="tc-header">
+              <div>
+                <h3 class="tc-role">MEAN Stack Developer</h3>
+                <p class="tc-company">Asset Telematics Pvt Ltd</p>
+              </div>
+              <div class="tc-period">
+                <span class="period-badge current">Current</span>
+                <span class="period-date">Nov 2022 – Present</span>
+              </div>
+            </div>
+            <ul class="tc-points">
+              <li>Architecting full-stack features with <strong>Angular 15+</strong> & Node.js/Express.js microservices</li>
+              <li>Built real-time pipelines using <strong>Apache Kafka & MQTT</strong> for fleet tracking and live alert systems</li>
+              <li>Scaled RESTful APIs to <strong>50K+ daily requests</strong> with Redis caching — 30% latency reduction</li>
+              <li>Implemented <strong>Keycloak SSO</strong> with OAuth 2.0/OIDC and multi-tenant RBAC for cloud platform</li>
+              <li>Managed <strong>AWS S3</strong> with signed URLs and lifecycle policies for secure document storage</li>
+            </ul>
+            <div class="tc-tags">
+              <span>Angular 15+</span><span>Node.js</span><span>Kafka</span><span>MQTT</span><span>Keycloak</span><span>AWS S3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-right" id="exp-2">
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-line"></div>
+          </div>
+          <div class="timeline-card">
+            <div class="tc-header">
+              <div>
+                <h3 class="tc-role">Angular Developer</h3>
+                <p class="tc-company">Aagama Consulting Services</p>
+              </div>
+              <div class="tc-period">
+                <span class="period-date">Nov 2022 – Sep 2024</span>
+              </div>
+            </div>
+            <ul class="tc-points">
+              <li>Delivered <strong>Angular 15</strong> enterprise applications for Indian Railways (CRIS)</li>
+              <li>Migrated legacy <strong>VB6 FOIS systems</strong> with lazy-loaded modules, HTTP interceptors, shared component libraries</li>
+              <li>Integrated <strong>WSO2 API Manager</strong> and WebLogic for enterprise gateway and deployment</li>
+            </ul>
+            <div class="tc-tags">
+              <span>Angular 15</span><span>CRIS/FOIS</span><span>WSO2</span><span>WebLogic</span><span>CI/CD</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-left" id="exp-3">
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-line"></div>
+          </div>
+          <div class="timeline-card">
+            <div class="tc-header">
+              <div>
+                <h3 class="tc-role">Angular Developer</h3>
+                <p class="tc-company">Tech Mahindra Ltd.</p>
+              </div>
+              <div class="tc-period">
+                <span class="period-date">Sep 2021 – Aug 2022</span>
+              </div>
+            </div>
+            <ul class="tc-points">
+              <li>Built <strong>Angular 8</strong> enterprise web applications with C# Web API backends</li>
+              <li>Contributed across <strong>UI/UX design</strong>, REST API integration, and QA testing</li>
+            </ul>
+            <div class="tc-tags">
+              <span>Angular 8</span><span>C# Web API</span><span>REST APIs</span><span>UI/UX</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal-right" id="exp-4">
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+          </div>
+          <div class="timeline-card">
+            <div class="tc-header">
+              <div>
+                <h3 class="tc-role">Trainee Apprentice</h3>
+                <p class="tc-company">Cyient Ltd.</p>
+              </div>
+              <div class="tc-period">
+                <span class="period-date">Jul 2020 – Aug 2021</span>
+              </div>
+            </div>
+            <ul class="tc-points">
+              <li>Gained foundational software engineering experience across <strong>digital product development workflows</strong></li>
+            </ul>
+            <div class="tc-tags">
+              <span>Software Engineering</span><span>Product Development</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="section projects-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">What I've Built</span>
+        <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card featured reveal-up" id="proj-cloud">
+          <div class="pc-glow"></div>
+          <div class="pc-badge">Featured</div>
+          <div class="pc-icon">☁️</div>
+          <h3 class="pc-title">Cloud AI Platform</h3>
+          <p class="pc-subtitle">Private Cloud Infrastructure (AWS/GCP-like)</p>
+          <p class="pc-company">Asset Telematics · 2024–Present</p>
+          <p class="pc-desc">Spearheading full-stack development of a private cloud platform on OpenNebula infrastructure with Keycloak-based SSO, multi-tenant RBAC, and Angular dashboards for resource provisioning and monitoring.</p>
+          <div class="pc-highlights">
+            <div class="pc-hl"><span>🔐</span> Keycloak SSO · OAuth 2.0 · OIDC identity federation</div>
+            <div class="pc-hl"><span>🏗️</span> Multi-tenant RBAC with least-privilege enforcement</div>
+            <div class="pc-hl"><span>📊</span> Angular dashboards for cloud resource lifecycle</div>
+          </div>
+          <div class="pc-stack">
+            <span>OpenNebula</span><span>Angular 15+</span><span>Node.js</span><span>Keycloak</span><span>OAuth 2.0</span><span>OIDC</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal-up" id="proj-hrms">
+          <div class="pc-glow"></div>
+          <div class="pc-icon">👥</div>
+          <h3 class="pc-title">HRMS & Inventory System</h3>
+          <p class="pc-subtitle">Enterprise Workforce Management · Middle East</p>
+          <p class="pc-company">Asset Telematics · 2023–2024</p>
+          <p class="pc-desc">Scalable multi-module HRMS for Middle East workforce covering employee onboarding, payroll, attendance, leave management, and real-time inventory control with AI-OCR integration.</p>
+          <div class="pc-highlights">
+            <div class="pc-hl"><span>⚡</span> 40% reduction in query time via MySQL optimization</div>
+            <div class="pc-hl"><span>🤖</span> AI-OCR automation — 40% faster onboarding</div>
+            <div class="pc-hl"><span>☁️</span> AWS S3 multi-tenant document storage</div>
+          </div>
+          <div class="pc-stack">
+            <span>Angular 15</span><span>Node.js</span><span>MySQL</span><span>Redis</span><span>AWS S3</span><span>AI-OCR</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal-up" id="proj-jio">
+          <div class="pc-glow"></div>
+          <div class="pc-icon">🚛</div>
+          <h3 class="pc-title">Jio Humsafar</h3>
+          <p class="pc-subtitle">B2B Logistics & Fleet Platform · Reliance Jio</p>
+          <p class="pc-company">Asset Telematics (Client: Reliance Jio) · 2022–2023</p>
+          <p class="pc-desc">High-throughput fleet tracking platform with real-time IoT communication, Kafka event streaming, geofencing engine for zone alerts, and 50K+ daily API request handling.</p>
+          <div class="pc-highlights">
+            <div class="pc-hl"><span>🗺️</span> Real-time MQTT fleet tracking + Geofencing engine</div>
+            <div class="pc-hl"><span>📡</span> Apache Kafka high-volume event streaming</div>
+            <div class="pc-hl"><span>⚡</span> 30% latency improvement via Redis + MongoDB</div>
+          </div>
+          <div class="pc-stack">
+            <span>Angular</span><span>Node.js</span><span>MongoDB</span><span>Kafka</span><span>MQTT</span><span>Redis</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal-up" id="proj-fois">
+          <div class="pc-glow"></div>
+          <div class="pc-icon">🚂</div>
+          <h3 class="pc-title">FOIS Migration</h3>
+          <p class="pc-subtitle">Indian Railways TMS, RMS & OCC · CRIS</p>
+          <p class="pc-company">Aagama Consulting (Client: CRIS) · 2022–2024</p>
+          <p class="pc-desc">Led Angular 15 migration of nationwide freight operations systems from VB6. Designed lazy-loaded modules, HTTP interceptors, and reusable component libraries used across all major Indian Railways zones.</p>
+          <div class="pc-highlights">
+            <div class="pc-hl"><span>🇮🇳</span> Nationwide deployment across all Indian Railways zones</div>
+            <div class="pc-hl"><span>🔄</span> VB6 to Angular 15 — complete modernization</div>
+            <div class="pc-hl"><span>🏗️</span> 50K+ daily API requests via Node.js/Tuxedo SALT</div>
+          </div>
+          <div class="pc-stack">
+            <span>Angular 15</span><span>TypeScript</span><span>Node.js</span><span>WSO2</span><span>Tuxedo SALT</span><span>WebLogic</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal-up" id="proj-bhuvi">
+          <div class="pc-glow"></div>
+          <div class="pc-icon">🌍</div>
+          <h3 class="pc-title">Bhuvi – Land Management</h3>
+          <p class="pc-subtitle">Role-Based Land Management Platform</p>
+          <p class="pc-company">Aagama Consulting · 2022–2023</p>
+          <p class="pc-desc">Developed role-based land management platform with dedicated dashboards for customers, admins, and field agents — covering geofencing, leasing, security, and NRI remote-access workflows.</p>
+          <div class="pc-highlights">
+            <div class="pc-hl"><span>🗺️</span> Geofencing + leasing + construction workflows</div>
+            <div class="pc-hl"><span>🌐</span> NRI remote property management with real-time updates</div>
+          </div>
+          <div class="pc-stack">
+            <span>Angular 15</span><span>C# Web API</span><span>SQL Server</span><span>Geofencing</span><span>RBAC</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS SECTION -->
+  <section id="achievements" class="section achievements-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Impact & Results</span>
+        <h2 class="section-title">Key <span class="gradient-text">Achievements</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="achievements-grid">
+        <div class="achievement-card reveal-up" id="ach-1">
+          <div class="ach-number">50K+</div>
+          <div class="ach-unit">Req/Day</div>
+          <p class="ach-desc">Daily API requests handled with zero downtime across Jio Humsafar and Indian Railways FOIS platforms</p>
+          <div class="ach-icon">⚡</div>
+        </div>
+        <div class="achievement-card reveal-up" id="ach-2">
+          <div class="ach-number">30%</div>
+          <div class="ach-unit">Latency Drop</div>
+          <p class="ach-desc">API latency reduction via Redis caching & DB optimization — measured in production environments</p>
+          <div class="ach-icon">🚀</div>
+        </div>
+        <div class="achievement-card reveal-up" id="ach-3">
+          <div class="ach-number">40%</div>
+          <div class="ach-unit">Faster Onboarding</div>
+          <p class="ach-desc">Onboarding time cut through AI-OCR automation for passport and visa document extraction in HRMS</p>
+          <div class="ach-icon">🤖</div>
+        </div>
+        <div class="achievement-card reveal-up" id="ach-4">
+          <div class="ach-number">🇮🇳</div>
+          <div class="ach-unit">National Scale</div>
+          <p class="ach-desc">Nationwide railway deployment — FOIS migration impacting freight operations across all major Indian Railways zones</p>
+          <div class="ach-icon">🚂</div>
+        </div>
+        <div class="achievement-card reveal-up" id="ach-5">
+          <div class="ach-number">SSO</div>
+          <div class="ach-unit">Unified Identity</div>
+          <p class="ach-desc">Keycloak SSO & RBAC — unified identity and access management across cloud microservices with OAuth 2.0 & OIDC</p>
+          <div class="ach-icon">🔐</div>
+        </div>
+        <div class="achievement-card reveal-up" id="ach-6">
+          <div class="ach-number">6+</div>
+          <div class="ach-unit">Enterprise Projects</div>
+          <p class="ach-desc">Delivered across Government (CRIS), Telecom (Reliance Jio), and Middle East enterprise clients</p>
+          <div class="ach-icon">🏆</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION SECTION -->
+  <section id="education" class="section education-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Academic Background</span>
+        <h2 class="section-title">Education <span class="gradient-text">Journey</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="education-grid">
+        <div class="edu-card reveal-up" id="edu-1">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-content">
+            <h3>B.Tech – Mechanical Engineering</h3>
+            <p class="edu-institution">JNTUK University</p>
+            <div class="edu-meta">
+              <span class="edu-year">2016 – 2020</span>
+              <span class="edu-grade">68%</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-card reveal-up" id="edu-2">
+          <div class="edu-icon">📚</div>
+          <div class="edu-content">
+            <h3>Diploma – Mechanical Engineering</h3>
+            <p class="edu-institution">Aditya Engineering College</p>
+            <div class="edu-meta">
+              <span class="edu-year">2013 – 2016</span>
+              <span class="edu-grade">75%</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-card reveal-up" id="edu-3">
+          <div class="edu-icon">🏫</div>
+          <div class="edu-content">
+            <h3>SSC</h3>
+            <p class="edu-institution">Vignana Jyothi School</p>
+            <div class="edu-meta">
+              <span class="edu-year">2012 – 2013</span>
+              <span class="edu-grade">87%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+        <div class="section-line"></div>
+        <p class="section-desc">I'm actively open to exciting full-stack opportunities. Whether you have a project in mind or just want to say hi — my inbox is always open!</p>
+      </div>
+      <div class="contact-wrapper">
+        <div class="contact-info reveal-left">
+          <div class="contact-item" id="ci-email">
+            <div class="ci-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <div>
+              <p class="ci-label">Email</p>
+              <a href="mailto:satyamanikanta274@gmail.com" class="ci-value">satyamanikanta274@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item" id="ci-phone">
+            <div class="ci-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.5 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.41 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <p class="ci-label">Phone</p>
+              <a href="tel:+918886646667" class="ci-value">+91 88866 46667</a>
+            </div>
+          </div>
+          <div class="contact-item" id="ci-linkedin">
+            <div class="ci-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <p class="ci-label">LinkedIn</p>
+              <a href="https://linkedin.com/in/ysmani0427" target="_blank" class="ci-value">linkedin.com/in/ysmani0427</a>
+            </div>
+          </div>
+          <div class="contact-item" id="ci-github">
+            <div class="ci-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            <div>
+              <p class="ci-label">GitHub</p>
+              <a href="https://github.com/Satya0427" target="_blank" class="ci-value">github.com/Satya0427</a>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form reveal-right" id="contact-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <label for="cf-name">Your Name</label>
+            <input type="text" id="cf-name" placeholder="e.g. Priya from TechCorp" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email Address</label>
+            <input type="email" id="cf-email" placeholder="hr@company.com" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-subject">Subject</label>
+            <input type="text" id="cf-subject" placeholder="Job Opportunity / Collaboration" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" rows="5" placeholder="Tell me about your project or opportunity..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full-width" id="form-submit-btn">
+            <span>Send Message</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+          <div class="form-success" id="form-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>
+            <span>Message sent! I'll get back to you soon.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-bracket">&lt;</span>
+          <span class="logo-name">SMY</span>
+          <span class="logo-bracket">/&gt;</span>
+        </div>
+        <p class="footer-tagline">Full-Stack MEAN Developer · Building scalable enterprise solutions since 2020</p>
+        <div class="footer-links">
+          <a href="mailto:satyamanikanta274@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/ysmani0427" target="_blank">LinkedIn</a>
+          <a href="https://github.com/Satya0427" target="_blank">GitHub</a>
+          <a href="tel:+918886646667">Phone</a>
+        </div>
+        <p class="footer-copy">© 2025 Satya Manikanta Yalla. Crafted with ❤️ & code.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
