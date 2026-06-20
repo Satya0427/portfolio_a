@@ -1,9 +1,110 @@
 /* ============================================================
    PORTFOLIO JAVASCRIPT – SATYA MANIKANTA YALLA
-   Handles: Particles, Typewriter, Scroll, Counters, Tabs, Form
+   Handles: CustomCursor, Particles, Typewriter, Scroll, Counters, Tabs, Form
    ============================================================ */
 
 'use strict';
+
+// ============================================================
+// 0. CUSTOM ANIMATED CURSOR
+// ============================================================
+(function initCustomCursor() {
+  // Skip on touch devices
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
+  const dot   = document.getElementById('cursor-dot');
+  const ring  = document.getElementById('cursor-ring');
+  const trail = document.getElementById('cursor-trail');
+  if (!dot || !ring || !trail) return;
+
+  // Mouse position (exact)
+  let mx = -200, my = -200;
+  // Ring/trail position (lerped)
+  let rx = -200, ry = -200;
+  let tx = -200, ty = -200;
+
+  // Lerp factors — ring is slower (more lag), trail is medium
+  const RING_LERP  = 0.12;
+  const TRAIL_LERP = 0.22;
+
+  // Track actual mouse
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+  });
+
+  // Lerp helper
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  // Animation loop
+  (function loop() {
+    // Dot snaps exactly to mouse
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+
+    // Ring lags behind with lerp
+    rx = lerp(rx, mx, RING_LERP);
+    ry = lerp(ry, my, RING_LERP);
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+
+    // Trail lags behind ring
+    tx = lerp(tx, rx, TRAIL_LERP);
+    ty = lerp(ty, ry, TRAIL_LERP);
+    trail.style.left = tx + 'px';
+    trail.style.top  = ty + 'px';
+
+    requestAnimationFrame(loop);
+  })();
+
+  // Hover state — detect interactive elements
+  const hoverTargets = 'a, button, .project-card, .stat-card, .ts-category, .skill-item, .achievement-card, .edu-card, .nav-link, .btn, .social-link, input, textarea, label, .skills-tab, .timeline-card';
+
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverTargets)) {
+      document.body.classList.add('cursor-hover');
+    }
+  });
+
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverTargets)) {
+      document.body.classList.remove('cursor-hover');
+    }
+  });
+
+  // Click ripple burst
+  document.addEventListener('mousedown', e => {
+    document.body.classList.add('cursor-click');
+
+    // Create ripple element
+    const ripple = document.createElement('div');
+    ripple.className = 'cursor-ripple';
+    ripple.style.left   = e.clientX + 'px';
+    ripple.style.top    = e.clientY + 'px';
+    ripple.style.width  = '28px';
+    ripple.style.height = '28px';
+    document.body.appendChild(ripple);
+
+    // Remove ripple after animation
+    ripple.addEventListener('animationend', () => ripple.remove());
+  });
+
+  document.addEventListener('mouseup', () => {
+    document.body.classList.remove('cursor-click');
+  });
+
+  // Hide cursor when leaving window
+  document.addEventListener('mouseleave', () => {
+    dot.style.opacity   = '0';
+    ring.style.opacity  = '0';
+    trail.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    dot.style.opacity   = '';
+    ring.style.opacity  = '';
+    trail.style.opacity = '';
+  });
+}());
 
 // ============================================================
 // 1. PARTICLE SYSTEM

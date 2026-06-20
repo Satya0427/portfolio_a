@@ -3,18 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Satya Manikanta Yalla – Full-Stack MEAN Developer with 4+ years of experience in Angular, Node.js, MongoDB, and Cloud platforms. Available for exciting opportunities." />
-  <meta name="keywords" content="Satya Manikanta Yalla, MEAN Stack Developer, Angular Developer, Node.js, Full Stack Developer, Keycloak, SSO, Portfolio" />
-  <meta property="og:title" content="Satya Manikanta Yalla | Full-Stack MEAN Developer" />
-  <meta property="og:description" content="4+ years building enterprise Angular & Node.js applications. Expert in cloud platforms, Keycloak SSO, real-time systems, and scalable APIs." />
+  <meta name="description" content="Satya Manikanta Yalla – Cloud & Full Stack Engineer with 3.7+ years of experience in Angular, Node.js, Cloud Infrastructure, HRMS, IoT & Real-Time Systems. Available for exciting opportunities." />
+  <meta name="keywords" content="Satya Manikanta Yalla, Cloud Engineer, Full Stack Developer, Angular Developer, Node.js, HRMS, IoT, Real-Time Systems, Keycloak, Portfolio" />
+  <meta property="og:title" content="Satya Manikanta Yalla | Cloud & Full Stack Engineer" />
+  <meta property="og:description" content="3.7+ years building enterprise Angular & Node.js applications. Expert in Cloud Infrastructure, HRMS, IoT platforms, and real-time systems." />
   <meta property="og:type" content="website" />
-  <title>Satya Manikanta Yalla | Full-Stack MEAN Developer</title>
+  <title>Satya Manikanta Yalla | Cloud & Full Stack Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="18" stroke="url(#cursorGrad)" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <defs>
+        <linearGradient id="cursorGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#38bdf8"/>
+          <stop offset="50%" stop-color="#6366f1"/>
+          <stop offset="100%" stop-color="#a855f7"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div id="cursor-trail" aria-hidden="true"></div>
 
   <!-- PARTICLE CANVAS -->
   <canvas id="particleCanvas"></canvas>
@@ -31,6 +47,7 @@
         <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
         <li><a href="#about" class="nav-link" data-section="about">About</a></li>
         <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#techstack" class="nav-link" data-section="techstack">Tech Stack</a></li>
         <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
         <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
         <li><a href="#achievements" class="nav-link" data-section="achievements">Achievements</a></li>
@@ -57,13 +74,18 @@
           <span class="name-first">Satya Manikanta</span>
           <span class="name-last">Yalla</span>
         </h1>
+        <div class="hero-title-block">
+          <p class="hero-title-main">Cloud &amp; Full Stack Engineer</p>
+          <p class="hero-subtitle-line">Angular • Node.js • Cloud Infrastructure</p>
+          <p class="hero-subtitle-line">HRMS • IoT • Real-Time Systems</p>
+        </div>
         <div class="hero-role-wrapper">
           <span class="role-prefix">I build&nbsp;</span>
           <span class="hero-role-text" id="typewriter"></span>
           <span class="cursor-blink">|</span>
         </div>
         <p class="hero-tagline">
-          4+ Years · MEAN Stack · Angular v12–20 · Keycloak SSO · Real-Time Systems
+          3.7+ Years · MEAN Stack · Angular v12–20 · Keycloak SSO · Real-Time Systems
         </p>
       </div>
       <div class="hero-actions reveal-up">
@@ -103,7 +125,7 @@
       <div class="floating-card card-2">
         <span class="fc-icon">🚀</span>
         <div>
-          <p class="fc-value">4+</p>
+          <p class="fc-value">3.7+</p>
           <p class="fc-label">Years Exp.</p>
         </div>
       </div>
@@ -133,7 +155,7 @@
       </div>
       <div class="about-grid">
         <div class="about-text reveal-left">
-          <p class="about-lead">I'm a passionate <strong>Full-Stack MEAN Developer</strong> with 4+ years of experience crafting enterprise-scale applications that power real-world operations — from Indian Railways to Reliance Jio's logistics fleet.</p>
+          <p class="about-lead">I'm a passionate <strong>Cloud &amp; Full Stack Engineer</strong> with 3.7+ years of experience crafting enterprise-scale applications that power real-world operations — from Indian Railways to Reliance Jio's logistics fleet.</p>
           <p>My expertise spans the entire stack: architecting Angular frontends with lazy-loaded modules, RxJS, and NgRx state management; designing scalable Node.js/Express.js APIs handling 50,000+ daily requests; and implementing robust cloud security with Keycloak SSO, OAuth 2.0, and OIDC.</p>
           <p>I've delivered mission-critical solutions for government agencies (CRIS/Indian Railways), telecom giants (Reliance Jio), and Middle East enterprises — bringing measurable impact through Redis-powered 30% latency improvements, AI-OCR automation, and real-time IoT fleet tracking.</p>
           <div class="about-highlights">
@@ -162,7 +184,7 @@
         <div class="about-stats reveal-right">
           <div class="stat-card" id="stat-1">
             <div class="stat-icon">🏗️</div>
-            <div class="stat-number counter" data-target="4">0</div>
+            <div class="stat-number">3.7</div>
             <div class="stat-suffix">+ Years</div>
             <p class="stat-label">Full-Stack Experience</p>
           </div>
@@ -318,6 +340,166 @@
     </div>
   </section>
 
+  <!-- TECH STACK SECTION -->
+  <section id="techstack" class="section techstack-section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-tag">Tools &amp; Technologies</span>
+        <h2 class="section-title">Tech <span class="gradient-text">Stack</span></h2>
+        <div class="section-line"></div>
+        <p class="section-desc">A curated breakdown of the technologies I use to build enterprise-grade, cloud-native applications.</p>
+      </div>
+      <div class="techstack-grid">
+
+        <div class="ts-category reveal-up" id="ts-frontend">
+          <div class="ts-cat-header">
+            <span class="ts-cat-icon">🖥️</span>
+            <h3 class="ts-cat-title">Frontend</h3>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon angular"></span>
+              <span>Angular 20</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon ts"></span>
+              <span>TypeScript</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon mat"></span>
+              <span>Angular Material</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon rxjs"></span>
+              <span>RxJS</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon ngrx"></span>
+              <span>NgRx</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon html"></span>
+              <span>HTML5 / CSS3 / SCSS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-category reveal-up" id="ts-backend">
+          <div class="ts-cat-header">
+            <span class="ts-cat-icon">⚙️</span>
+            <h3 class="ts-cat-title">Backend</h3>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon node"></span>
+              <span>Node.js</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon express"></span>
+              <span>Express.js</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon keycloak"></span>
+              <span>Keycloak</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon oauth"></span>
+              <span>OAuth 2.0 / OIDC</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon rbac"></span>
+              <span>RBAC / Multi-tenant</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-category reveal-up" id="ts-database">
+          <div class="ts-cat-header">
+            <span class="ts-cat-icon">🗄️</span>
+            <h3 class="ts-cat-title">Database</h3>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon mongo"></span>
+              <span>MongoDB</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon pg"></span>
+              <span>PostgreSQL</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon redis"></span>
+              <span>Redis</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon mysql"></span>
+              <span>MySQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-category reveal-up" id="ts-devops">
+          <div class="ts-cat-header">
+            <span class="ts-cat-icon">🔧</span>
+            <h3 class="ts-cat-title">DevOps</h3>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon docker"></span>
+              <span>Docker</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon nginx"></span>
+              <span>Nginx</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon jenkins"></span>
+              <span>Jenkins</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon linux"></span>
+              <span>Linux</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon git"></span>
+              <span>Git / GitLab</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-category reveal-up" id="ts-cloud">
+          <div class="ts-cat-header">
+            <span class="ts-cat-icon">☁️</span>
+            <h3 class="ts-cat-title">Cloud</h3>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon aws"></span>
+              <span>AWS S3</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon mqtt"></span>
+              <span>MQTT</span>
+            </div>
+            <div class="ts-pill ts-primary">
+              <span class="ts-pill-icon keycloak"></span>
+              <span>Keycloak</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon opennebula"></span>
+              <span>OpenNebula</span>
+            </div>
+            <div class="ts-pill">
+              <span class="ts-pill-icon kafka"></span>
+              <span>Apache Kafka</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- EXPERIENCE SECTION -->
   <section id="experience" class="section experience-section">
     <div class="container">
@@ -449,47 +631,64 @@
           <div class="pc-glow"></div>
           <div class="pc-badge">Featured</div>
           <div class="pc-icon">☁️</div>
-          <h3 class="pc-title">Cloud AI Platform</h3>
-          <p class="pc-subtitle">Private Cloud Infrastructure (AWS/GCP-like)</p>
+          <h3 class="pc-title">Cloud VM Management Portal</h3>
+          <p class="pc-subtitle">Private Cloud Infrastructure — AWS/GCP-like Self-Service</p>
           <p class="pc-company">Asset Telematics · 2024–Present</p>
-          <p class="pc-desc">Spearheading full-stack development of a private cloud platform on OpenNebula infrastructure with Keycloak-based SSO, multi-tenant RBAC, and Angular dashboards for resource provisioning and monitoring.</p>
+          <p class="pc-desc">Full-stack cloud management portal enabling users to provision, monitor, and manage virtual machines on OpenNebula infrastructure — with Keycloak SSO, multi-tenant RBAC, and real-time Angular dashboards.</p>
           <div class="pc-highlights">
             <div class="pc-hl"><span>🔐</span> Keycloak SSO · OAuth 2.0 · OIDC identity federation</div>
             <div class="pc-hl"><span>🏗️</span> Multi-tenant RBAC with least-privilege enforcement</div>
-            <div class="pc-hl"><span>📊</span> Angular dashboards for cloud resource lifecycle</div>
+            <div class="pc-hl"><span>📊</span> Angular dashboards for cloud resource lifecycle management</div>
           </div>
           <div class="pc-stack">
-            <span>OpenNebula</span><span>Angular 15+</span><span>Node.js</span><span>Keycloak</span><span>OAuth 2.0</span><span>OIDC</span>
+            <span>OpenNebula</span><span>Angular 20</span><span>Node.js</span><span>Keycloak</span><span>OAuth 2.0</span><span>Docker</span><span>Nginx</span>
           </div>
         </div>
 
         <div class="project-card reveal-up" id="proj-hrms">
           <div class="pc-glow"></div>
           <div class="pc-icon">👥</div>
-          <h3 class="pc-title">HRMS & Inventory System</h3>
-          <p class="pc-subtitle">Enterprise Workforce Management · Middle East</p>
+          <h3 class="pc-title">Recruitment HRMS</h3>
+          <p class="pc-subtitle">Enterprise HR &amp; Recruitment Platform · Middle East</p>
           <p class="pc-company">Asset Telematics · 2023–2024</p>
-          <p class="pc-desc">Scalable multi-module HRMS for Middle East workforce covering employee onboarding, payroll, attendance, leave management, and real-time inventory control with AI-OCR integration.</p>
+          <p class="pc-desc">End-to-end HRMS covering recruitment pipelines, employee onboarding, attendance, leave management, and document handling — with AI-OCR for passport and visa extraction and multi-tenant AWS S3 storage.</p>
           <div class="pc-highlights">
-            <div class="pc-hl"><span>⚡</span> 40% reduction in query time via MySQL optimization</div>
-            <div class="pc-hl"><span>🤖</span> AI-OCR automation — 40% faster onboarding</div>
-            <div class="pc-hl"><span>☁️</span> AWS S3 multi-tenant document storage</div>
+            <div class="pc-hl"><span>🤖</span> AI-OCR — 40% faster document onboarding</div>
+            <div class="pc-hl"><span>☁️</span> AWS S3 multi-tenant secure document storage</div>
+            <div class="pc-hl"><span>⚡</span> 40% query time reduction via MySQL optimization</div>
           </div>
           <div class="pc-stack">
-            <span>Angular 15</span><span>Node.js</span><span>MySQL</span><span>Redis</span><span>AWS S3</span><span>AI-OCR</span>
+            <span>Angular 20</span><span>Node.js</span><span>PostgreSQL</span><span>Redis</span><span>AWS S3</span><span>Angular Material</span>
           </div>
         </div>
 
-        <div class="project-card reveal-up" id="proj-jio">
+        <div class="project-card reveal-up" id="proj-payroll">
           <div class="pc-glow"></div>
-          <div class="pc-icon">🚛</div>
-          <h3 class="pc-title">Jio Humsafar</h3>
-          <p class="pc-subtitle">B2B Logistics & Fleet Platform · Reliance Jio</p>
+          <div class="pc-icon">💰</div>
+          <h3 class="pc-title">Payroll Engine</h3>
+          <p class="pc-subtitle">Automated Payroll Processing System</p>
+          <p class="pc-company">Asset Telematics · 2023–2024</p>
+          <p class="pc-desc">Automated payroll computation engine with support for multi-country tax rules, salary slips, deductions, and real-time processing for large workforce with configurable pay structures and compliance workflows.</p>
+          <div class="pc-highlights">
+            <div class="pc-hl"><span>📋</span> Multi-country tax rules and compliance automation</div>
+            <div class="pc-hl"><span>⚡</span> Real-time salary processing for 1000+ employees</div>
+            <div class="pc-hl"><span>📊</span> Configurable pay structures and deduction workflows</div>
+          </div>
+          <div class="pc-stack">
+            <span>Angular 20</span><span>Node.js</span><span>PostgreSQL</span><span>Redis</span><span>Express.js</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal-up" id="proj-iot">
+          <div class="pc-glow"></div>
+          <div class="pc-icon">📡</div>
+          <h3 class="pc-title">Asset Telematics IoT Platform</h3>
+          <p class="pc-subtitle">Real-Time Fleet &amp; Asset Tracking · Reliance Jio</p>
           <p class="pc-company">Asset Telematics (Client: Reliance Jio) · 2022–2023</p>
-          <p class="pc-desc">High-throughput fleet tracking platform with real-time IoT communication, Kafka event streaming, geofencing engine for zone alerts, and 50K+ daily API request handling.</p>
+          <p class="pc-desc">High-throughput IoT telematics platform handling real-time MQTT vehicle data, Kafka event streaming, geofencing for zone alerts, and 50K+ daily API requests across Jio's nationwide logistics fleet.</p>
           <div class="pc-highlights">
             <div class="pc-hl"><span>🗺️</span> Real-time MQTT fleet tracking + Geofencing engine</div>
-            <div class="pc-hl"><span>📡</span> Apache Kafka high-volume event streaming</div>
+            <div class="pc-hl"><span>📡</span> Apache Kafka high-volume IoT event streaming</div>
             <div class="pc-hl"><span>⚡</span> 30% latency improvement via Redis + MongoDB</div>
           </div>
           <div class="pc-stack">
@@ -500,10 +699,10 @@
         <div class="project-card reveal-up" id="proj-fois">
           <div class="pc-glow"></div>
           <div class="pc-icon">🚂</div>
-          <h3 class="pc-title">FOIS Migration</h3>
-          <p class="pc-subtitle">Indian Railways TMS, RMS & OCC · CRIS</p>
+          <h3 class="pc-title">FOIS Migration — Indian Railways</h3>
+          <p class="pc-subtitle">Nationwide Freight Operations Modernization · CRIS</p>
           <p class="pc-company">Aagama Consulting (Client: CRIS) · 2022–2024</p>
-          <p class="pc-desc">Led Angular 15 migration of nationwide freight operations systems from VB6. Designed lazy-loaded modules, HTTP interceptors, and reusable component libraries used across all major Indian Railways zones.</p>
+          <p class="pc-desc">Led Angular 15 migration of nationwide freight operations systems from legacy VB6. Designed lazy-loaded modules, HTTP interceptors, and reusable component libraries deployed across all Indian Railways zones.</p>
           <div class="pc-highlights">
             <div class="pc-hl"><span>🇮🇳</span> Nationwide deployment across all Indian Railways zones</div>
             <div class="pc-hl"><span>🔄</span> VB6 to Angular 15 — complete modernization</div>
@@ -511,22 +710,6 @@
           </div>
           <div class="pc-stack">
             <span>Angular 15</span><span>TypeScript</span><span>Node.js</span><span>WSO2</span><span>Tuxedo SALT</span><span>WebLogic</span>
-          </div>
-        </div>
-
-        <div class="project-card reveal-up" id="proj-bhuvi">
-          <div class="pc-glow"></div>
-          <div class="pc-icon">🌍</div>
-          <h3 class="pc-title">Bhuvi – Land Management</h3>
-          <p class="pc-subtitle">Role-Based Land Management Platform</p>
-          <p class="pc-company">Aagama Consulting · 2022–2023</p>
-          <p class="pc-desc">Developed role-based land management platform with dedicated dashboards for customers, admins, and field agents — covering geofencing, leasing, security, and NRI remote-access workflows.</p>
-          <div class="pc-highlights">
-            <div class="pc-hl"><span>🗺️</span> Geofencing + leasing + construction workflows</div>
-            <div class="pc-hl"><span>🌐</span> NRI remote property management with real-time updates</div>
-          </div>
-          <div class="pc-stack">
-            <span>Angular 15</span><span>C# Web API</span><span>SQL Server</span><span>Geofencing</span><span>RBAC</span>
           </div>
         </div>
 
@@ -598,7 +781,7 @@
             <h3>B.Tech – Mechanical Engineering</h3>
             <p class="edu-institution">JNTUK University</p>
             <div class="edu-meta">
-              <span class="edu-year">2016 – 2020</span>
+              <span class="edu-year">2017 – 2020</span>
               <span class="edu-grade">68%</span>
             </div>
           </div>
@@ -609,7 +792,7 @@
             <h3>Diploma – Mechanical Engineering</h3>
             <p class="edu-institution">Aditya Engineering College</p>
             <div class="edu-meta">
-              <span class="edu-year">2013 – 2016</span>
+              <span class="edu-year">2014 – 2017</span>
               <span class="edu-grade">75%</span>
             </div>
           </div>
@@ -620,7 +803,7 @@
             <h3>SSC</h3>
             <p class="edu-institution">Vignana Jyothi School</p>
             <div class="edu-meta">
-              <span class="edu-year">2012 – 2013</span>
+              <span class="edu-year">2013 – 2014</span>
               <span class="edu-grade">87%</span>
             </div>
           </div>
@@ -716,7 +899,7 @@
           <span class="logo-name">SMY</span>
           <span class="logo-bracket">/&gt;</span>
         </div>
-        <p class="footer-tagline">Full-Stack MEAN Developer · Building scalable enterprise solutions since 2020</p>
+        <p class="footer-tagline">Cloud &amp; Full Stack Engineer · Angular • Node.js • Cloud Infrastructure · 3.7+ Years</p>
         <div class="footer-links">
           <a href="mailto:satyamanikanta274@gmail.com">Email</a>
           <a href="https://linkedin.com/in/ysmani0427" target="_blank">LinkedIn</a>

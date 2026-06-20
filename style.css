@@ -1,10 +1,123 @@
 /* ============================================================
    PORTFOLIO – SATYA MANIKANTA YALLA
-   Full-Stack MEAN Developer
+   Cloud & Full Stack Engineer
    ============================================================ */
 
 /* ---------- RESET & BASE ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ============================================================
+   CUSTOM ANIMATED CURSOR
+   ============================================================ */
+
+/* Hide default cursor everywhere */
+*, *::before, *::after { cursor: none !important; }
+
+/* --- Cursor Dot (exact mouse position) --- */
+#cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow:
+    0 0 8px rgba(56,189,248,0.9),
+    0 0 20px rgba(56,189,248,0.5);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+
+/* --- Cursor Ring (lagging SVG spinner) --- */
+#cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  will-change: transform;
+}
+
+#cursor-ring svg {
+  width: 100%; height: 100%;
+  animation: cursor-spin 4s linear infinite;
+}
+
+@keyframes cursor-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Trail micro-dot --- */
+#cursor-trail {
+  position: fixed;
+  top: 0; left: 0;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.6);
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s ease;
+  will-change: transform;
+}
+
+/* --- HOVER STATE: over links, buttons, cards --- */
+body.cursor-hover #cursor-dot {
+  width: 14px; height: 14px;
+  background: #a855f7;
+  box-shadow:
+    0 0 12px rgba(168,85,247,0.9),
+    0 0 30px rgba(168,85,247,0.5);
+}
+
+body.cursor-hover #cursor-ring {
+  width: 56px; height: 56px;
+  opacity: 0.8;
+}
+
+body.cursor-hover #cursor-ring svg {
+  animation: cursor-spin 1.5s linear infinite;
+}
+
+/* --- CLICK STATE: shrink + burst --- */
+body.cursor-click #cursor-dot {
+  width: 6px; height: 6px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(255,255,255,0.9);
+}
+
+body.cursor-click #cursor-ring {
+  width: 60px; height: 60px;
+  opacity: 0.4;
+}
+
+/* --- Click Ripple Burst --- */
+.cursor-ripple {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99996;
+  border: 1.5px solid rgba(56,189,248,0.8);
+  transform: translate(-50%, -50%) scale(0);
+  animation: cursor-ripple-out 0.55s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+}
+
+@keyframes cursor-ripple-out {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+}
+
+/* Hide cursor elements on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  #cursor-dot, #cursor-ring, #cursor-trail { display: none; }
+  *, *::before, *::after { cursor: auto !important; }
+}
+
+
 
 :root {
   --bg-primary:    #050b1a;
@@ -42,11 +155,28 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  background: var(--bg-primary);
+  background: var(--bg-primary) url('background_img.png') fixed;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-main);
   line-height: 1.65;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 11, 26, 0.5);
+  backdrop-filter: blur(1px);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ---------- SCROLLBAR ---------- */
@@ -313,8 +443,8 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(56,189,248,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(168,85,247,0.08) 0%, transparent 60%);
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(56,189,248,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(168,85,247,0.12) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -446,9 +576,10 @@ body {
 .hero-glow {
   position: absolute;
   width: 320px; height: 320px;
-  background: radial-gradient(circle, rgba(56,189,248,0.22) 0%, rgba(99,102,241,0.12) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(56,189,248,0.35) 0%, rgba(99,102,241,0.2) 50%, transparent 70%);
   border-radius: 50%;
   animation: pulse-glow 4s ease-in-out infinite;
+  filter: blur(15px);
 }
 
 @keyframes pulse-glow {
@@ -462,8 +593,9 @@ body {
   padding: 4px;
   background: var(--gradient-main);
   position: relative;
-  box-shadow: 0 0 60px rgba(56,189,248,0.3), 0 0 120px rgba(99,102,241,0.15);
+  box-shadow: 0 0 80px rgba(56,189,248,0.6), 0 0 160px rgba(99,102,241,0.4), 0 0 200px rgba(168,85,247,0.25);
   animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 40px rgba(56,189,248,0.3));
 }
 
 @keyframes float {
@@ -476,6 +608,8 @@ body {
   border-radius: 50%;
   object-fit: cover;
   background: var(--bg-card);
+  filter: brightness(1.15) contrast(1.1);
+  box-shadow: inset 0 0 40px rgba(56,189,248,0.2);
 }
 
 .floating-card {
@@ -1506,3 +1640,187 @@ body {
   .contact-form { padding: 1.75rem; }
   .floating-card { display: none; }
 }
+
+/* ============================================================
+   HERO TITLE BLOCK – Cloud & Full Stack Engineer
+   ============================================================ */
+.hero-title-block {
+  margin: 0.5rem 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.hero-title-main {
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 800;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.hero-subtitle-line {
+  font-size: clamp(0.82rem, 1.8vw, 1rem);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-family: var(--font-code);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   TECH STACK SECTION
+   ============================================================ */
+.techstack-section { background: var(--bg-secondary); }
+
+.techstack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.ts-category {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.ts-category::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-main);
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+
+.ts-category:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-glow);
+  background: var(--bg-card-hover);
+}
+
+.ts-category:hover::before {
+  transform: scaleX(1);
+}
+
+.ts-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ts-cat-icon {
+  font-size: 1.5rem;
+}
+
+.ts-cat-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ts-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.ts-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  cursor: default;
+}
+
+.ts-pill:hover {
+  border-color: var(--border-glow);
+  color: var(--text-primary);
+  background: rgba(56,189,248,0.07);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(56,189,248,0.15);
+}
+
+.ts-pill.ts-primary {
+  border-color: rgba(99,102,241,0.25);
+  background: rgba(99,102,241,0.07);
+  color: var(--text-primary);
+}
+
+.ts-pill.ts-primary:hover {
+  border-color: var(--accent-blue);
+  background: rgba(99,102,241,0.15);
+  box-shadow: 0 4px 16px rgba(99,102,241,0.25);
+}
+
+.ts-pill-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* Reuse skill-icon color system for ts-pill-icon */
+.ts-pill-icon.angular { background: linear-gradient(135deg, #dd0031, #c3002f); }
+.ts-pill-icon.ts      { background: linear-gradient(135deg, #3178c6, #235a97); }
+.ts-pill-icon.mat     { background: linear-gradient(135deg, #e040fb, #9c27b0); }
+.ts-pill-icon.rxjs    { background: linear-gradient(135deg, #b7178c, #8b1168); }
+.ts-pill-icon.ngrx    { background: linear-gradient(135deg, #9147ff, #6b2fb5); }
+.ts-pill-icon.html    { background: linear-gradient(135deg, #e34c26, #f06529); }
+.ts-pill-icon.node    { background: linear-gradient(135deg, #339933, #215c21); }
+.ts-pill-icon.express { background: linear-gradient(135deg, #555, #333); }
+.ts-pill-icon.keycloak{ background: linear-gradient(135deg, #4a90d9, #2563eb); }
+.ts-pill-icon.oauth   { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.ts-pill-icon.rbac    { background: linear-gradient(135deg, #6366f1, #4338ca); }
+.ts-pill-icon.mongo   { background: linear-gradient(135deg, #4ea94b, #2f6d2e); }
+.ts-pill-icon.pg      { background: linear-gradient(135deg, #336791, #1a3b5c); }
+.ts-pill-icon.redis   { background: linear-gradient(135deg, #dc382d, #a82920); }
+.ts-pill-icon.mysql   { background: linear-gradient(135deg, #00618a, #00758f); }
+.ts-pill-icon.docker  { background: linear-gradient(135deg, #2496ed, #1a72b8); }
+.ts-pill-icon.nginx   { background: linear-gradient(135deg, #009900, #006600); }
+.ts-pill-icon.jenkins { background: linear-gradient(135deg, #d24939, #a63325); }
+.ts-pill-icon.linux   { background: linear-gradient(135deg, #555, #222); }
+.ts-pill-icon.git     { background: linear-gradient(135deg, #f05032, #c13418); }
+.ts-pill-icon.aws     { background: linear-gradient(135deg, #ff9900, #d47900); }
+.ts-pill-icon.mqtt    { background: linear-gradient(135deg, #3c5a99, #1d3461); }
+.ts-pill-icon.opennebula { background: linear-gradient(135deg, #40acd8, #2280a8); }
+.ts-pill-icon.kafka   { background: linear-gradient(135deg, #231f20, #555); }
+
+/* ============================================================
+   SKILL ICON – PostgreSQL (pg) — newly added
+   ============================================================ */
+.skill-icon.pg { background: linear-gradient(135deg, #336791, #1a3b5c); }
+.skill-icon.jenkins { background: linear-gradient(135deg, #d24939, #a63325); }
+
+/* ============================================================
+   RESPONSIVE – TECHSTACK
+   ============================================================ */
+@media (max-width: 1024px) {
+  .techstack-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .techstack-grid { grid-template-columns: 1fr; }
+  .hero-title-block { text-align: center; }
+}
+
